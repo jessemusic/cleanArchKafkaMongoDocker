@@ -36,7 +36,7 @@ public class insertCustomerUseCaseImpl implements InsertCustomerUseCase {
         try {
             address = this.findAddressByZipCode.find(zipCode);
         } catch (RuntimeException ex) {
-            if(ex.getMessage().contains(Messages.ERRO_CONNECTION_REFUSED)){
+            if(ex.getMessage().contains(Messages.CONNECTION_REFUSED)){
                 throw new RefusedConnectionException(Messages.ERRO_CONEXAO_API_ADDRESS + ex.getMessage());
             }
             throw new CepNotFoundException(Messages.ERRO_ZIPCODE_NAO_ENCONTRADO + zipCode);
