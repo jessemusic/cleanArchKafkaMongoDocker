@@ -7,6 +7,8 @@ import br.com.mattec.clean.cleanarch.core.domain.Address;
 import br.com.mattec.clean.cleanarch.core.domain.Customer;
 import br.com.mattec.clean.cleanarch.core.usecase.InsertCustomerUseCase;
 import br.com.mattec.clean.cleanarch.exceptions.CepNotFoundException;
+import br.com.mattec.clean.cleanarch.exceptions.RefusedConnectionException;
+import lombok.SneakyThrows;
 
 public class insertCustomerUseCaseImpl implements InsertCustomerUseCase {
 
@@ -27,12 +29,16 @@ public class insertCustomerUseCaseImpl implements InsertCustomerUseCase {
     }
 
     @Override
+    @SneakyThrows
     public void insert(Customer customer, String zipCode) {
         Address address = null;
-        try{
-         address = this.findAddressByZipCode.find(zipCode);
-        }catch (RuntimeException e){
-            throw new CepNotFoundException("Cep não encontrado na base com com zipCode: "+ zipCode);
+        try {
+            address = this.findAddressByZipCode.find(zipCode);
+        } catch (RuntimeException ex) {
+            if(ex.getMessage().contains("Connection refused")){
+                throw new RefusedConnectionException("Não foi possivel estabelecer as conexão com a API de endereços!! " + ex.getMessage());
+            }
+            throw new CepNotFoundException("CEP não encontrado na base com zipCode: " + zipCode);
         }
         customer.setAddress(address);
            insertCustomer.insert(customer);

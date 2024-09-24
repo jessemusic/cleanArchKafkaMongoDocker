@@ -13,4 +13,12 @@ public class GlobalExceptionHandler {
         ErrorResponse errorDetails = new ErrorResponse(HttpStatus.NOT_FOUND.value(), ex.getMessage(), request.getDescription(false));
         return new ResponseEntity<>(errorDetails, HttpStatus.NOT_FOUND);
     }
+
+
+
+    @ExceptionHandler(RefusedConnectionException.class)
+    public ResponseEntity<?> handleArtigoNotFoundException(RefusedConnectionException ex, WebRequest request) {
+        ErrorResponse errorDetails = new ErrorResponse(HttpStatus.SERVICE_UNAVAILABLE.value(), ex.getMessage(), request.getDescription(false));
+        return new ResponseEntity<>(errorDetails, HttpStatus.SERVICE_UNAVAILABLE);
+    }
 }
