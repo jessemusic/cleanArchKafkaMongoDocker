@@ -8,6 +8,7 @@ import br.com.mattec.clean.cleanarch.core.domain.Customer;
 import br.com.mattec.clean.cleanarch.core.usecase.InsertCustomerUseCase;
 import br.com.mattec.clean.cleanarch.exceptions.CepNotFoundException;
 import br.com.mattec.clean.cleanarch.exceptions.RefusedConnectionException;
+import br.com.mattec.clean.cleanarch.util.Messages;
 import lombok.SneakyThrows;
 
 public class insertCustomerUseCaseImpl implements InsertCustomerUseCase {
@@ -35,13 +36,13 @@ public class insertCustomerUseCaseImpl implements InsertCustomerUseCase {
         try {
             address = this.findAddressByZipCode.find(zipCode);
         } catch (RuntimeException ex) {
-            if(ex.getMessage().contains("Connection refused")){
-                throw new RefusedConnectionException("Não foi possivel estabelecer as conexão com a API de endereços!! " + ex.getMessage());
+            if(ex.getMessage().contains(Messages.ERRO_CONNECTION_REFUSED)){
+                throw new RefusedConnectionException(Messages.ERRO_CONEXAO_API_ADDRESS + ex.getMessage());
             }
-            throw new CepNotFoundException("CEP não encontrado na base com zipCode: " + zipCode);
+            throw new CepNotFoundException(Messages.ERRO_ZIPCODE_NAO_ENCONTRADO + zipCode);
         }
         customer.setAddress(address);
-           insertCustomer.insert(customer);
+        insertCustomer.insert(customer);
         sendCpdForValidation.send(customer.getCpf());
     }
 }
