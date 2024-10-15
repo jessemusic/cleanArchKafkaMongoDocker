@@ -13,5 +13,10 @@ public class CustomerRequest {
     private String cpf;
 
     @NotBlank
+    private String numeroendereco;
+
+    @NotBlank
     private String zipCode;
+
+
 }

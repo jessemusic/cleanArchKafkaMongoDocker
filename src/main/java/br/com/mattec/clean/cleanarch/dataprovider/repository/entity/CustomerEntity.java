@@ -16,6 +16,8 @@ public class CustomerEntity {
 
     private AddressEntity address;
 
+    private String numeroendereco;
+
     private String cpf;
 
     private Boolean isValidCpf;

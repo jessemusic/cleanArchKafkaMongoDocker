@@ -10,17 +10,20 @@ public class Customer {
 
     private Address address;
 
+    private String numeroendereco;
+
     private Boolean validCpf;
 
     public Customer() {
         this.validCpf = false;
     }
 
-    public Customer(String id, String name, String cpf, Address address, Boolean isValidCpf) {
+    public Customer(String id, String name, String cpf, Address address,String numeroendereco, Boolean isValidCpf) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
         this.address = address;
+        this.numeroendereco = numeroendereco;
         this.validCpf = isValidCpf;
     }
 
@@ -61,5 +64,13 @@ public class Customer {
     }
 
     public void setValidCpf(Boolean validCpf){ this.validCpf = validCpf;
+    }
+
+    public String getNumeroendereco() {
+        return numeroendereco;
+    }
+
+    public void setNumeroendereco(String numeroendereco) {
+        this.numeroendereco = numeroendereco;
     }
 }

@@ -1,7 +1,6 @@
 package br.com.mattec.clean.cleanarch.entrypoint.controller;
 
 
-import br.com.mattec.clean.cleanarch.core.dataprovider.DeleteCustomerById;
 import br.com.mattec.clean.cleanarch.core.usecase.DeleteCustomerByIdUseCase;
 import br.com.mattec.clean.cleanarch.core.usecase.FindCustomerByIdUseCase;
 import br.com.mattec.clean.cleanarch.core.usecase.InsertCustomerUseCase;
